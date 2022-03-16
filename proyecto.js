@@ -60,6 +60,11 @@ async function solve(n, a, b, ab, ba) {
      */
     let time;
     let lines;
+    let lastline;
+    let aaOpt;
+    let abOpt;
+    let bbOpt;
+    let baOpt;
 
 
 
@@ -69,14 +74,64 @@ async function solve(n, a, b, ab, ba) {
      */
 
 
-    time = 10;
+    time = 0;
     lines = [];
+    
     for (let step = 0; step < n; step++){
-        //lines.push('a');
-        if (step == 0 && a[step]>b[step]) {
-            lines.push('b');
-        }else  lines.push('a');
-        //console.log(a[step]);
+        //Caso base, para empezar por a o por b:
+        if(step==0){
+            if (a[step]>b[step]) {
+                lines.push('b');
+                time += b[step];
+                lastline = 'b';
+                //step+=1;
+            }else{
+                lines.push('a');
+                time += a[step];
+                lastline = 'a';
+                //step+=1;            
+            } 
+        }else{
+            //Demás casos:
+
+        if(lastline=='a'){
+            //Cuando la ultima linea de ensamblaje fue la a:
+            //console.log(lastline=='a');
+            aaOpt=a[step-1] + a[step];
+            abOpt=a[step-1] + b[step]+ ab[step-1]; 
+            if(aaOpt<abOpt){
+                lines.push('a');
+                time += a[step];
+                lastline = 'a';
+                //step+=1;
+            }else{
+                lines.push('b');
+                time += b[step] + ab[step-1];
+                lastline = 'b';
+                //step+=1;
+            }
+
+        }else{
+            //Cuando la ultima linea de ensamblaje fue la b:
+            bbOpt=b[step-1] + b[step];
+            baOpt=b[step-1] + a[step]+ ba[step-1];  
+            if(bbOpt<baOpt){
+                lines.push('b');
+                time += b[step];
+                lastline = 'b';
+                //step+=1;
+            }else{
+                lines.push('a');
+                time += a[step] + ba[step-1];
+                lastline = 'a';
+                //step+=1;
+            }
+        }
+        }
+
+        
+
+        
     }  
 
 
