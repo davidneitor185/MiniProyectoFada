@@ -58,13 +58,16 @@ async function solve(n, a, b, ab, ba) {
     /**
      * Declaración de variables para la salida del algoritmo (No modificar)
      */
-    let time;
-    let lines;
+    let timeA;
+    let linesA;
+    let timeB;
+    let linesB;
     let lastline;
     let aaOpt;
     let abOpt;
     let bbOpt;
     let baOpt;
+   
 
 
 
@@ -74,57 +77,107 @@ async function solve(n, a, b, ab, ba) {
      */
 
 
-    time = 0;
-    lines = [];
+    timeA = 0;
+    linesA = [];
+    timeB = 0;
+    linesB = [];
+  
+ 
+   
+
+   
+
     
-    for (let step = 0; step < n; step++){
+
+    for (let i = 0; i < n; i++){
         //Caso base, para empezar por a o por b:
-        if(step==0){
-            if (a[step]>b[step]) {
-                lines.push('b');
-                time += b[step];
-                lastline = 'b';
-                //step+=1;
-            }else{
-                lines.push('a');
-                time += a[step];
-                lastline = 'a';
-                //step+=1;            
-            } 
+        if(i==0){            
+                linesA.push('a');
+                timeA += a[i];
+                lastline = 'a';                        
         }else{
             //Demás casos:
 
         if(lastline=='a'){
             //Cuando la ultima linea de ensamblaje fue la a:
             //console.log(lastline=='a');
-            aaOpt=a[step-1] + a[step];
-            abOpt=a[step-1] + b[step]+ ab[step-1]; 
+            aaOpt=a[i-1] + a[i];
+            abOpt=a[i-1] + b[i]+ ab[i-1]; 
             if(aaOpt<abOpt){
-                lines.push('a');
-                time += a[step];
+                linesA.push('a');
+                timeA += a[i];
                 lastline = 'a';
-                //step+=1;
+                //i+=1;
             }else{
-                lines.push('b');
-                time += b[step] + ab[step-1];
+                linesA.push('b');
+                timeA += b[i] + ab[i-1];
                 lastline = 'b';
-                //step+=1;
+                //i+=1;
             }
 
         }else{
             //Cuando la ultima linea de ensamblaje fue la b:
-            bbOpt=b[step-1] + b[step];
-            baOpt=b[step-1] + a[step]+ ba[step-1];  
+            bbOpt=b[i-1] + b[i];
+            baOpt=b[i-1] + a[i]+ ba[i-1];  
             if(bbOpt<baOpt){
-                lines.push('b');
-                time += b[step];
+                linesA.push('b');
+                timeA += b[i];
                 lastline = 'b';
-                //step+=1;
+                //i+=1;
             }else{
-                lines.push('a');
-                time += a[step] + ba[step-1];
+                linesA.push('a');
+                timeA += a[i] + ba[i-1];
                 lastline = 'a';
-                //step+=1;
+                //i+=1;
+            }
+        }
+        }
+
+        
+
+        
+    } 
+    
+    for (let i = 0; i < n; i++){
+        //Caso base, para empezar por a o por b:
+        if(i==0){            
+                linesB.push('b');
+                timeB += b[i];
+                lastline = 'b';                        
+        }else{
+            //Demás casos:
+
+        if(lastline=='a'){
+            //Cuando la ultima linea de ensamblaje fue la a:
+            //console.log(lastline=='a');
+            aaOpt=a[i-1] + a[i];
+            abOpt=a[i-1] + b[i]+ ab[i-1]; 
+            if(aaOpt<abOpt){
+                linesB.push('a');
+                timeB += a[i];
+                lastline = 'a';
+                //i+=1;
+            }else{
+                linesB.push('b');
+                timeB += b[i] + ab[i-1];
+                lastline = 'b';
+                //i+=1;
+            }
+
+        }else{
+            //Cuando la ultima linea de ensamblaje fue la b:
+            bbOpt=b[i-1] + b[i];
+            baOpt=b[i-1] + a[i]+ ba[i-1];  
+            if(bbOpt<baOpt){
+                linesB.push('b');
+                timeB += b[i];
+                lastline = 'b';
+                //i+=1;
+            }else{
+                linesB.push('a');
+                timeB += a[i] + ba[i-1];
+                lastline = 'a';
+                //i+=1;
             }
         }
         }
@@ -145,7 +198,14 @@ async function solve(n, a, b, ab, ba) {
     /**
      * Salida del algoritmo (No modificar)
      */
-    return createAnswerObject(n, time, lines);
+    
+
+    if(timeA<timeB){
+        return createAnswerObject(n, timeA, linesA);
+    }else{
+        return createAnswerObject(n, timeB, linesB);
+    }
+    
 }
 async function main() {
     let { n, a, b, ab, ba } = await input();
