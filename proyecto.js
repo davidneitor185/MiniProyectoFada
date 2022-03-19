@@ -87,10 +87,10 @@ async function solve(n, a, b, ab, ba) {
 
    
 
-    
+    //calculando si se empieza por a:
 
     for (let i = 0; i < n; i++){
-        //Caso base, para empezar por a o por b:
+        
         if(i==0){            
                 linesA.push('a');
                 timeA += a[i];
@@ -137,9 +137,9 @@ async function solve(n, a, b, ab, ba) {
 
         
     } 
-    
+    //calculando si se empieza por b:
     for (let i = 0; i < n; i++){
-        //Caso base, para empezar por a o por b:
+        
         if(i==0){            
                 linesB.push('b');
                 timeB += b[i];
