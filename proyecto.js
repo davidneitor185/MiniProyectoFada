@@ -1,6 +1,6 @@
 let fs = require('fs');
-let nombreLectura = 'in';
-let nombreEscritura = 'out'
+let nombreLectura = 'in 3';
+let nombreEscritura = 'out 3'
 
 /**
  * Función para leer el archivo bajo el formato establecido en el proyecto. El nombre se cambia en la variable "nombreLectura"
@@ -81,16 +81,14 @@ async function solve(n, a, b, ab, ba) {
     linesA = [];
     timeB = 0;
     linesB = [];
-  
- 
-   
+    
 
    
 
     //calculando si se empieza por a:
 
     for (let i = 0; i < n; i++){
-        
+
         if(i==0){            
                 linesA.push('a');
                 timeA += a[i];
@@ -114,6 +112,7 @@ async function solve(n, a, b, ab, ba) {
                 lastline = 'b';
                 //i+=1;
             }
+            //console.log(timeA);
 
         }else{
             //Cuando la ultima linea de ensamblaje fue la b:
@@ -130,6 +129,7 @@ async function solve(n, a, b, ab, ba) {
                 lastline = 'a';
                 //i+=1;
             }
+            //console.log(timeA);
         }
         }
 
