@@ -1,6 +1,6 @@
 let fs = require('fs');
-let nombreLectura = 'in 3';
-let nombreEscritura = 'out 3'
+let nombreLectura = 'in 9';
+let nombreEscritura = 'out 9'
 
 /**
  * Función para leer el archivo bajo el formato establecido en el proyecto. El nombre se cambia en la variable "nombreLectura"
